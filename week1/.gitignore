@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+day6_7_api/mini_project/output/

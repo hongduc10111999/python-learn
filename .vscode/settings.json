@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/week2/.venv/bin/python",
+  "code-runner.executorMap": {
+    "python": "export PATH=\"/opt/homebrew/bin:$PATH\"; ROOT=/Users/doanhongduc/code/learn/python; case \"$dir\" in *week2*) VENV=$ROOT/week2/.venv ;; *) VENV=$ROOT/week1/.venv ;; esac; \"$VENV/bin/python\" -u \"$fullFileName\""
+  },
+  "code-runner.fileDirectoryAsCwd": true
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đơn hàng</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Week 1 Lessons</span>
+    <a href="/">Trang chủ</a>
+    <a href="/lesson/basic/variables">Cú pháp</a>
+    <a href="/lesson/orders">Đơn hàng</a>
+    <a href="/lesson/stats">Thống kê</a>
+    <a href="/lesson/exchange">Tỷ giá</a>
+  </nav>
+
+  <div class="container">
+    <h1>📋 Đơn hàng</h1>
+    <p class="subtitle">Chọn danh mục — Python lọc dữ liệu và trả về</p>
+
+    <div class="controls">
+      <label for="category">Danh mục:</label>
+      <select id="category" onchange="loadOrders()"></select>
+      <span id="count" class="muted"></span>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Mã đơn</th>
+            <th>Ngày</th>
+            <th>Khách hàng</th>
+            <th>Sản phẩm</th>
+            <th>Danh mục</th>
+            <th>SL</th>
+            <th>Tổng (USD)</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function loadOrders() {
+      const category = document.getElementById("category").value || "All";
+      const res = await fetch(`/api/orders?category=${encodeURIComponent(category)}`);
+      const data = await res.json();
+
+      const select = document.getElementById("category");
+      if (select.options.length === 0) {
+        data.categories.forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c;
+          opt.textContent = c;
+          select.appendChild(opt);
+        });
+      }
+
+      document.getElementById("count").textContent = `${data.count} đơn`;
+      const body = document.getElementById("orders-body");
+      body.innerHTML = "";
+      data.orders.forEach((o) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${o.order_id}</td>
+          <td>${o.date.slice(0, 10)}</td>
+          <td>${o.customer}</td>
+          <td>${o.product}</td>
+          <td>${o.category}</td>
+          <td>${o.quantity}</td>
+          <td>$${o.total_usd.toLocaleString()}</td>`;
+        body.appendChild(row);
+      });
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tỷ giá</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Week 1 Lessons</span>
+    <a href="/">Trang chủ</a>
+    <a href="/lesson/basic/variables">Cú pháp</a>
+    <a href="/lesson/orders">Đơn hàng</a>
+    <a href="/lesson/stats">Thống kê</a>
+    <a href="/lesson/exchange">Tỷ giá</a>
+  </nav>
+
+  <div class="container">
+    <h1>💱 Quy đổi tỷ giá</h1>
+    <p class="subtitle">Bấm nút — Python gọi API tỷ giá thật và quy đổi</p>
+
+    <div class="controls">
+      <label for="currency">Quy đổi sang:</label>
+      <select id="currency">
+        <option value="VND">VND</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+        <option value="KRW">KRW</option>
+      </select>
+      <button onclick="convert()">Lấy tỷ giá & quy đổi</button>
+    </div>
+
+    <div class="metrics" id="result"></div>
+  </div>
+
+  <script>
+    async function convert() {
+      const currency = document.getElementById("currency").value;
+      const result = document.getElementById("result");
+      result.innerHTML = '<p class="muted">Đang gọi API...</p>';
+
+      const res = await fetch(`/api/exchange?currency=${currency}`);
+      const data = await res.json();
+
+      result.innerHTML = `
+        <div class="metric">
+          <div class="label">Tỷ giá 1 USD</div>
+          <div class="value">${data.rate.toLocaleString()} ${data.currency}</div>
+        </div>
+        <div class="metric">
+          <div class="label">Doanh thu (USD)</div>
+          <div class="value">$${data.total_usd.toLocaleString()}</div>
+        </div>
+        <div class="metric">
+          <div class="label">Quy đổi (${data.currency})</div>
+          <div class="value">${data.converted.toLocaleString()}</div>
+        </div>`;
+    }
+  </script>
+</body>
+</html>

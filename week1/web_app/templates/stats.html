@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thống kê</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Week 1 Lessons</span>
+    <a href="/">Trang chủ</a>
+    <a href="/lesson/basic/variables">Cú pháp</a>
+    <a href="/lesson/orders">Đơn hàng</a>
+    <a href="/lesson/stats">Thống kê</a>
+    <a href="/lesson/exchange">Tỷ giá</a>
+  </nav>
+
+  <div class="container">
+    <h1>📊 Thống kê</h1>
+    <p class="subtitle">Python dùng pandas groupby để tính toán</p>
+
+    <div class="metrics" id="metrics"></div>
+
+    <div class="card">
+      <h3>Doanh thu theo danh mục</h3>
+      <div id="by-category"></div>
+    </div>
+
+    <div class="card">
+      <h3>Doanh thu theo khách hàng</h3>
+      <div id="by-customer"></div>
+    </div>
+  </div>
+
+  <script>
+    function renderBars(containerId, dataObj) {
+      const container = document.getElementById(containerId);
+      const max = Math.max(...Object.values(dataObj));
+      container.innerHTML = "";
+      for (const [name, value] of Object.entries(dataObj)) {
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        const width = (value / max) * 100;
+        row.innerHTML = `
+          <span class="name">${name}</span>
+          <div class="bar" style="width:${width}%"></div>
+          <span class="amount">$${value.toLocaleString()}</span>`;
+        container.appendChild(row);
+      }
+    }
+
+    async function loadStats() {
+      const res = await fetch("/api/stats");
+      const data = await res.json();
+
+      document.getElementById("metrics").innerHTML = `
+        <div class="metric">
+          <div class="label">Tổng số đơn</div>
+          <div class="value">${data.total_orders}</div>
+        </div>
+        <div class="metric">
+          <div class="label">Tổng doanh thu</div>
+          <div class="value">$${data.total_revenue.toLocaleString()}</div>
+        </div>`;
+
+      renderBars("by-category", data.by_category);
+      renderBars("by-customer", data.by_customer);
+    }
+
+    loadStats();
+  </script>
+</body>
+</html>

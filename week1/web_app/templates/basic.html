@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Week 1 Lessons</span>
+    <a href="/">Trang chủ</a>
+    <a href="/lesson/basic/variables">Cú pháp</a>
+    <a href="/lesson/orders">Đơn hàng</a>
+    <a href="/lesson/stats">Thống kê</a>
+    <a href="/lesson/exchange">Tỷ giá</a>
+  </nav>
+
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <p class="subtitle">File gốc: <code>{{ file }}</code> — Python chạy và đổ kết quả vào HTML</p>
+
+    <div class="controls">
+      {% for k, item in lessons.items() %}
+        <a href="/lesson/basic/{{ k }}">
+          <button {% if k == active %}style="background:#34598a"{% endif %}>{{ item.title }}</button>
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Biểu thức</th>
+            <th>Kết quả</th>
+            <th>Kiểu</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for label, value, type_name in rows %}
+            <tr>
+              <td><code>{{ label }}</code></td>
+              <td>{{ value }}</td>
+              <td><span class="muted">{{ type_name }}</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 — Web App</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Week 1 Lessons</span>
+    <a href="/">Trang chủ</a>
+    <a href="/lesson/basic/variables">Cú pháp</a>
+    <a href="/lesson/orders">Đơn hàng</a>
+    <a href="/lesson/stats">Thống kê</a>
+    <a href="/lesson/exchange">Tỷ giá</a>
+  </nav>
+
+  <div class="container">
+    <h1>Web App — Python Backend</h1>
+    <p class="subtitle">Frontend HTML/CSS · Backend Python (Flask) xử lý dữ liệu orders.csv</p>
+
+    <div class="cards-grid">
+      <a class="lesson-link" href="/lesson/basic/variables">
+        <div class="card">
+          <h3>🐍 Day 1–2: Cú pháp Python</h3>
+          <p class="muted">Biến, list/dict, hàm, vòng lặp & lambda — Python chạy và đổ kết quả vào HTML.</p>
+        </div>
+      </a>
+      <a class="lesson-link" href="/lesson/basic/classes">
+        <div class="card">
+          <h3>🧱 Day 3: OOP & Module</h3>
+          <p class="muted">Class, kế thừa, xử lý lỗi, import — kết quả chạy hiển thị dạng bảng.</p>
+        </div>
+      </a>
+      <a class="lesson-link" href="/lesson/basic/json">
+        <div class="card">
+          <h3>📑 Day 4–5: JSON & Regex</h3>
+          <p class="muted">Đọc/ghi JSON và trích xuất dữ liệu bằng biểu thức chính quy.</p>
+        </div>
+      </a>
+      <a class="lesson-link" href="/lesson/orders">
+        <div class="card">
+          <h3>📋 Bài 1: Đơn hàng</h3>
+          <p class="muted">Hiển thị bảng đơn hàng, lọc theo danh mục. Python đọc CSV và trả về JSON.</p>
+        </div>
+      </a>
+      <a class="lesson-link" href="/lesson/stats">
+        <div class="card">
+          <h3>📊 Bài 2: Thống kê</h3>
+          <p class="muted">Doanh thu theo danh mục và khách hàng. Python dùng pandas groupby.</p>
+        </div>
+      </a>
+      <a class="lesson-link" href="/lesson/exchange">
+        <div class="card">
+          <h3>💱 Bài 3: Tỷ giá</h3>
+          <p class="muted">Bấm nút để Python gọi API tỷ giá và quy đổi doanh thu sang VND.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

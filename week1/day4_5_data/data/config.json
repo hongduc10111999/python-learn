@@ -1,0 +1,13 @@
+{
+  "app_name": "OCR Pipeline",
+  "version": "1.0",
+  "languages": [
+    "vie",
+    "eng"
+  ],
+  "ocr": {
+    "engine": "tesseract",
+    "dpi": 300,
+    "preprocess": true
+  }
+}
